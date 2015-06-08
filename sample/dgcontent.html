@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"?
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript">
+
+function toggleControls() {
+var el=document.querySelector("dg-content");
+if (el.getAttribute("controls")) {
+    el.removeAttribute("controls");}
+    else
+    {el.setAttribute("controls",true);}
+}
+function toggleSimple() {
+var el=document.querySelector("dg-simplifieddesc");
+if (el.getAttribute("show")) {
+    el.removeAttribute("show");}
+    else
+    {el.setAttribute("show",true);}
+    }
+function toggleLongdesc() {
+var el=document.querySelector("dg-longdesc");
+if (el.getAttribute("show")) {
+    el.removeAttribute("show");}
+    else
+    {el.setAttribute("show",true);}
+    }    
+function toggleTactile() {
+var el=document.querySelector("dg-tactile");
+if (el.getAttribute("show")) {
+    el.removeAttribute("show");}
+    else
+    {el.setAttribute("show",true);}
+    }
+function toggleOverlay() {
+var el=document.querySelector("dg-longdesc");
+if (el.getAttribute("overlay")) {
+    el.removeAttribute("overlay");}
+    else
+    {el.setAttribute("overlay",true);}
+    }
+</script>
+<script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+</head>
+<body>
+
+
+<polymer-element name="dg-content" attributes="controls alternates" >
+  <template>
+    <div id="figcont" style="border: solid 2px black;position:relative;">
+     <figure>
+        <content></content>
+        <template if="{{controls}}">
+           <button id="db" on-click="{{showdesc}}" style="position:absolute;left:0;top:0;">Description</button>
+        </template>
+     </figure>
+   </div>
+</template>
+<script>
+      Polymer('dg-content', {
+        controls: true,
+        controlsChanged: function (oldVal, newVal) {
+        this.controls=newVal;
+         
+          if (this.controls=="true") {this.db.display="block";} else {this.db.style.display="none"};
+        },
+
+        showdesc: function () {
+          var el=document.querySelector('dg-longdesc');
+          if (el.getAttribute("show")) {
+    el.removeAttribute("show");}
+    else
+    {el.setAttribute("show",true);}
+        },
+        domReady: function (){
+        var xw=document.querySelector("img").width;
+        document.querySelector("dg-content").style.width=xw;
+        var el=document.querySelector('dg-longdesc');
+         if (el.getAttribute("show")) {
+    el.removeAttribute("show");}
+    else
+    {el.setAttribute("show",true);}
+        }
+       
+      });
+  </script>
+</polymer-element>
+
+<polymer-element name="dg-img"  noscript>
+  <template>
+    <content></content>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-summary" attributes="show" noscript>
+  <template>
+    <figcaption style="border: blue solid 1px;"><content></content></figcaption>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-longdesc" attributes="show overlay" >
+  <template if="{{show}}">
+  
+    <template if="{{overlay}}">
+    <style>
+      .descstyle {background: blue; color: white; width="50%"; padding: 10px; margin: 10px;box-shadow: 10px 10px 5px #888888;position:absolute;left:0;top:1.5em;}
+    </style>
+    <div id="longd" class="descstyle">
+    <content></content>
+    </div>
+  </template>
+  <template if="{{!overlay}}">
+    <style>
+    div {background: white; color: black; width="50%"; padding: 10px; margin: 10px;}
+  </style>
+  <div id="longd" style="border: blue 2px solid;padding:5px;">
+    <content></content>
+    </div>
+  </template>
+  </template>
+  <script>
+      Polymer('dg-longdesc', {
+        show: '',
+        showChanged: function (oldVal, newVal) {
+        this.show=newVal;
+        if (this.show) {this.style.display="block";} else {this.style.display="none"};
+         
+        } 
+      });
+  </script>
+</polymer-element>
+
+<polymer-element name="dg-simplifieddesc" attributes="show" >
+  <template>
+  <style>
+     div {background: white; color: black; width="50%"; padding: 10px; margin: 10px;border: black solid 1px;}
+    </style>
+    <div>
+    <strong>Simplified:</strong> 
+    <content></content>
+   </div>
+  </template>
+  <script>
+      Polymer('dg-simplifieddesc', {
+        source: '',
+        show: 'true',
+        controls: 'true',
+        controlsChanged: function (oldVal, newVal) {
+        this.controls=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+        },
+        showChanged: function (oldVal, newVal) {
+        this.show=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+          if (this.show) {this.style.display="block";} else {this.style.display="none"};
+        
+        }
+      });
+  </script>
+</polymer-element>
+
+<polymer-element name="dg-tour"  noscript>
+  <template>
+    <content></content>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-simplifiedimg" attributes="show" noscript>
+  <template>
+    <content></content>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-tactile" attributes="source controls show">
+<template>
+    <style>
+     div {background: white; color: black; width="50%"; padding: 10px; margin: 10px; border: black solid 1px;}
+    </style>
+      <template if="{{ controls }}">
+      <div>
+       <button on-click="{{ embosser }}">Emboss</button>
+       <div><strong>Tour:</strong> 
+       <content></content>
+       </div>
+      </div>
+    </template>
+</template>
+<script>
+      Polymer('dg-tactile', {
+        source: '',
+        show: 'true',
+        controls: 'true',
+        controlsChanged: function (oldVal, newVal) {
+        this.controls=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+        },
+        showChanged: function (oldVal, newVal) {
+        this.show=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+          if (this.show) {this.style.display="block";} else {this.style.display="none"};
+        },
+        embosser: function () {
+          var w=window.open(this.source);
+          w.print();
+        }
+      });
+  </script>
+</polymer-element>
+
+
+
+
+<h1>DIAGRAM Content Model in HTML</h1>
+<details style="border: black solid 1px; padding: 4px;">
+<summary style="border: black dash 1px">Controlling <code>&lt;dg-content&gt;</code> with javascript</summary>
+<button onclick="toggleControls();">Show/Hide Controls</button>
+<button onclick="toggleLongdesc();">Show/Hide longdesc</button>
+<button onclick="toggleSimple()";>Show/Hide Simplified Description</button>
+<button onclick="toggleTactile()";>Show/Hide Tactile</button>
+<button onclick="toggleOverlay()";>Toggle longdesc style</button>
+</details>
+<h2>Survey Diagram</h2>
+<p>The following image:</p> 
+	
+<dg-content controls >
+  <dg-img>
+    <img src="imgs/survey.jpg" alt="Image of surveyors working">
+  </dg-img>
+  <dg-summary show>
+    The image depicts two surveyors measuring the angles between
+    themselves and a tree.
+  </dg-summary>
+  <dg-longdesc show="true" overlay="false">Two surveyors, A and P, stand some distance 
+    apart on the south bank 
+	of a river, looking at a tree, T, that is on the north bank of the river. 
+	Points A, P, and T form a triangle. At points A and P, there are two parallel 
+	sight lines pointing north and forming angles outside of the triangle. At 
+	point P, angle TPA is 53 degrees. The adjacent angle between PT and the 
+	northern sight line is 37 degrees. At point A, angle TAP is not labeled, 
+	and the adjacent angle formed between AT and that northern sight line is 
+	32 degrees.
+  </dg-longdesc>
+  <dg-simplifieddesc show="false">
+    T, A, and P are the three points on a triangle. Angle TPA is 53 degrees 
+	with an adjacent angle of 37 degrees. The angle adjacent to angle TAP is 32 degrees.
+  </dg-simplifieddesc>
+  <dg-tactile show="false" source="imgs/anglesmap.jpg" controls="false">
+    <dg-tour>
+      Start exploring at the top right.
+    </dg-tour>
+  </dg-tactile>
+</dg-content>
+
+<p>Can you explain how the distances to T is calculated?</p>
+
+</body>
+</html>

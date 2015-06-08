@@ -1,0 +1,166 @@
+<polymer-element name="dg-content" attributes="controls alternates" >
+  <template>
+    <div id="figcont" style="border: solid 2px black;position:relative;">
+     <figure>
+        <content></content>
+        <template if="{{controls}}">
+           <button id="db" on-click="{{showdesc}}" style="position:absolute;left:0;top:0;">Description</button>
+        </template>
+     </figure>
+   </div>
+</template>
+<script>
+      Polymer('dg-content', {
+        controls: true,
+        controlsChanged: function (oldVal, newVal) {
+        this.controls=newVal;
+         
+         if (this.controls=="true") {this.db.style.display="block";} else {this.db.style.display="none"};
+        },
+
+        showdesc: function () {
+          var el=document.querySelector('dg-longdesc');
+          
+          if (el.getAttribute("show")) {
+    el.removeAttribute("show");}
+    else
+    {el.setAttribute("show",true);}
+        },
+        domReady: function (){
+       
+        var el=document.querySelector('dg-longdesc');
+         if (el.getAttribute("show")) {
+    el.removeAttribute("show");}
+    else
+    {el.setAttribute("show",true);}
+        }
+       
+      });
+  </script>
+</polymer-element>
+
+<polymer-element name="dg-img"  noscript>
+  <template>
+    <content></content>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-summary" attributes="show" noscript>
+  <template>
+    <figcaption style="border: blue solid 1px;"><content></content></figcaption>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-longdesc" attributes="show overlay" >
+  <template if="{{show}}">
+  
+    <template if="{{overlay}}">
+    <style>
+      .descstyle {background: blue; color: white; width="50%"; padding: 10px; margin: 10px;box-shadow: 10px 10px 5px #888888;position:absolute;left:0;top:1.5em;}
+    </style>
+    <div id="longd" class="descstyle" aria-hidden="true">
+    <content></content>
+    </div>
+  </template>
+  <template if="{{!overlay}}">
+    <style>
+    .descstyle {background: white; color: black; width="50%"; padding: 10px; margin: 10px;}
+  </style>
+  <div id="longd" class="descstyle" aria-hidden="true">
+    <content></content>
+    </div>
+  </template>
+  </template>
+  <script>
+      Polymer('dg-longdesc', {
+        show: '',
+        showChanged: function (oldVal, newVal) {
+        this.show=newVal;
+        if (this.show) {this.style.display="block"; aria-hidden="false";} else {this.style.display="none"; aria-hidden="true";}
+         
+        } 
+      });
+  </script>
+</polymer-element>
+
+<polymer-element name="dg-simplifieddesc" attributes="show" >
+  <template>
+  <style>
+     div {background: white; color: black; width="50%"; padding: 10px; margin: 10px;border: black solid 1px;}
+    </style>
+    <div>
+    <strong>Simplified:</strong> 
+    <content></content>
+   </div>
+  </template>
+  <script>
+      Polymer('dg-simplifieddesc', {
+        source: '',
+        show: 'true',
+        controls: 'true',
+        controlsChanged: function (oldVal, newVal) {
+        this.controls=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+        },
+        showChanged: function (oldVal, newVal) {
+        this.show=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+          if (this.show) {this.style.display="block";} else {this.style.display="none"};
+        
+        }
+      });
+  </script>
+</polymer-element>
+
+<polymer-element name="dg-tour"  noscript>
+  <template>
+    <content></content>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-simplifiedimg" attributes="show" noscript>
+  <template>
+    <content></content>
+  </template>
+</polymer-element>
+
+<polymer-element name="dg-tactile" attributes="source controls show">
+<template>
+    <style>
+     div {background: white; color: black; width="50%"; padding: 10px; margin: 10px; border: black solid 1px;}
+    </style>
+      <template if="{{ controls }}">
+      <div>
+       <button on-click="{{ embosser }}">Emboss</button>
+       <div><strong>Tour:</strong> 
+       <content></content>
+       </div>
+      </div>
+    </template>
+</template>
+<script>
+      Polymer('dg-tactile', {
+        source: '',
+        show: 'true',
+        controls: 'true',
+        controlsChanged: function (oldVal, newVal) {
+        this.controls=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+        },
+        showChanged: function (oldVal, newVal) {
+        this.show=newVal;
+          console.log(oldVal);
+          console.log(newVal);
+          if (this.show) {this.style.display="block";} else {this.style.display="none"};
+        },
+        embosser: function () {
+          var w=window.open(this.source);
+          w.print();
+        }
+      });
+  </script>
+</polymer-element>
+
