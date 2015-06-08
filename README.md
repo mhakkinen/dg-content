@@ -99,3 +99,5 @@ if (el.getAttribute("show")) {
 
 ```
 
+## Acknowlegments
+The image sample used is from the [DIAGRAM Center's](http://www.diagramcenter.org) [Accessible Image Sample Book](http://diagramcenter.org/standards-and-practices/accessible-image-sample-book.html).
