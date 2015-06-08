@@ -44,48 +44,85 @@ The following sections describe the DG-Content Structure. Attributes or elements
 ### Elements & Attributes
 #### `<dg-content>`
 Top level container element.
+
 #####Attributes
 `controls` true | false  (optional)
 Indicates that default user interface will be supplied for all applicable alternative content. `Controls` without explict value is true.
+
 `src` URI (optional) NOT IMPLEMENTED
 As an alternate to supplying the DIAGRAMMAR content inline in HTML, the author may reference an external DIAGRAMMAR resource file via URI. The alternate content will be dynamically loaded into the appropriate structures within DG-Content in the containing page.
+
 #### `<dg-img>`
+
 A container for the image resource.  The image may be any of the formats supported by the browser, and may utilize, for example, an `img` element, `svg`, or ASCII art. 
+
 ##### Attributes
+
 *none at this time*
+
 #### `<dg-summary>`
 Container for the image summary. Can contain structured text.
+
 ##### Attributes
+
 `show` true | false  (optional)
+
 Indicates whether the summary will be automatically shown along with the image. `show` without explict value is true.
+
 *Note* - placement of the summary text is up to discussion, and whether styling options are provided.
+
 #### `<dg-longdesc>`
 The container for the image's long description, which can be rich structured text.  TBD is whether `dg-longdesc` would allow for a `src` attribute pointing to an external text description.
 ##### Attributes
+
 `show` true | false  (optional)
+
 Indicates whether the long description will be automatically shown along with the image. `show` without explict value is true.
+
 `overlay` true | false (optional)
+
 Indicates how the long description will be shown. If `overlay` is true, the description will be shown as an overlay upon the image.  If false, the description will be placed below the image.
+
 *Note* - this feature was added as an experiment to demonstrate how styles may be applied to the alternates. A richer styling mechanism would be needed.
+
 #### `<dg-simplifieddesc>`
+
 The container for the image's simplified description, which can be rich, structured text.
+
 ##### Attributes
+
 `show` true | false  (optional)
+
 Indicates whether the simplified description will be automatically shown along with the image. `show` without explict value is true.
+
 #### `<dg-tactile>`
+
 Element referencing a tactile file for printing or embossing.
+
 *Note* This element needs further discussion.
+
 #####Attributes
+
 `show` true | false  (optional)
+
 Indicates whether the Emboss button will be automatically shown along with the image. `show` without explict value is true.
+
 `src` URI 
+
 Reference to the tactile image file.
+
 `type` embossable | 3D | other    NOT IMPLEMENTED
-The type of tactile file
+
+The type of tactile file.
+
 #### `<dg-tour>`
+
 Child element of `<dg-tactile>` containing a rich, structured text tour of the tactile image or object.
+
 *Note* Discussion needed as to when and how this text would be displayed.
+
 ### Javascript Interface
+
 `<dg-content>` can be controlled via Javascript, to show and hide descriptions, for example.  In the code sample below, a function `toggleLongdesc` is used to change the *show* state of `dg-longdesc`.
 
 ```
@@ -100,4 +137,5 @@ if (el.getAttribute("show")) {
 ```
 
 ## Acknowlegments
+
 The image sample used is from the [DIAGRAM Center's](http://www.diagramcenter.org) [Accessible Image Sample Book](http://diagramcenter.org/standards-and-practices/accessible-image-sample-book.html).
