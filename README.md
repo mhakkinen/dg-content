@@ -1,5 +1,6 @@
 # DG-Content - DIAGRAMMAR in HTML
-Author: Mark Hakkinen - Educational Testing Service
+Author: Markku Hakkinen 
+
 ## About
 `DG-Content` is an initial prototype of a custom elements/webcomponents implementation of the DIAGRAMMAR markup for image description directly in HTML.  This allows image description and alternate formats of the image to be authored and directly accessible in HTML. Using a model similar to that of HTML media elements (i.e., `AUDIO` and `VIDEO`), `DG-Content` can provide a default user interface for exposing the presence of image description and alternates to end users, or the developer may elect to implement their own user interface via javascript.
 
@@ -42,14 +43,19 @@ The following sections describe the DG-Content Structure. Attributes or elements
 </dg-content>
 ```
 ### Elements & Attributes
+
 #### `<dg-content>`
+
 Top level container element.
 
 #####Attributes
+
 `controls` true | false  (optional)
+
 Indicates that default user interface will be supplied for all applicable alternative content. `Controls` without explict value is true.
 
 `src` URI (optional) NOT IMPLEMENTED
+
 As an alternate to supplying the DIAGRAMMAR content inline in HTML, the author may reference an external DIAGRAMMAR resource file via URI. The alternate content will be dynamically loaded into the appropriate structures within DG-Content in the containing page.
 
 #### `<dg-img>`
@@ -72,7 +78,9 @@ Indicates whether the summary will be automatically shown along with the image. 
 *Note* - placement of the summary text is up to discussion, and whether styling options are provided.
 
 #### `<dg-longdesc>`
+
 The container for the image's long description, which can be rich structured text.  TBD is whether `dg-longdesc` would allow for a `src` attribute pointing to an external text description.
+
 ##### Attributes
 
 `show` true | false  (optional)
